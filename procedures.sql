@@ -122,6 +122,60 @@ END;
 END IF;
 //
 
+/* Part F */
+DROP PROCEDURE IF EXISTS UpdateScores //
+CREATE PROCEDURE UpdateScores(In password VARCHAR(20), In student_ssn INT, IN assignment VARCHAR(20), In new_score FLOAT)
+BEGIN
+    IF NOT EXISTS (SELECT * from Passwords WHERE CurPasswords like password) THEN
+        SELECT 'Invalid password' as 'Error Message';
+    ELSEIF student_ssn=0001 THEN
+        SELECT 'Invalid SSN' AS 'Error Message';
+    ELSEIF student_ssn=0002 THEN
+        SELECT 'Invalid SSN' AS 'Error Message';
+    ELSEIF NOT EXISTS(SELECT * FROM Rawscores WHERE SSN=student_ssn) THEN
+        SELECT 'Invalid SSN' AS 'Error Message';
+    ELSEIF assignment like 'HW1' THEN
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+        UPDATE Rawscores
+        SET HW1 = new_score
+        WHERE SSN = student_ssn;
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+    ELSEIF assignment like 'HW2a' THEN
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+        UPDATE Rawscores
+        SET HW2a = new_score
+        WHERE SSN = student_ssn;
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+    ELSEIF assignment like 'HW2b' THEN
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+        UPDATE Rawscores
+        SET HW2b = new_score
+        WHERE SSN = student_ssn;
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+    ELSEIF assignment like 'Midterm' THEN
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+        UPDATE Rawscores
+        SET Midterm = new_score
+        WHERE SSN = student_ssn;
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+    ELSEIF assignment like 'HW3' THEN
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+        UPDATE Rawscores
+        SET HW3 = new_score
+        WHERE SSN = student_ssn;
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+    ELSEIF assignment like 'FExam' THEN
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+        UPDATE Rawscores
+        SET HW3 = new_score
+        WHERE SSN = student_ssn;
+        SELECT * FROM Rawscores WHERE SSN = student_ssn;
+    ELSE
+        SELECT 'Invalid Assignment' AS 'Error Message';
+    END IF;
+END;
+//
+
 /* For Part G */
 DROP PROCEDURE IF EXISTS UpdateMidterm //
 CREATE PROCEDURE UpdateMidterm(In password VARCHAR(20), In s_ssn INT, IN new INT)
